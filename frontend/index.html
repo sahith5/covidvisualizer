@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/logo.jpg">
+    <title>covid19visualizer</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+    <style>
+        #body{
+            color: blueviolet;
+        }
+        table,thead,tbody,th,td{
+            border: black 1px solid;
+            border-collapse:collapse ;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div>
+    <h3>total cases in india</h3>
+    <div id="cases" style="width: max-content;">
+
+    </div>
+
+    <h3>daily cases in india</h3>
+
+
+    <div id="dailycases">
+
+    </div>
+    <h3>total deaths in india</h3>
+
+    <div id="totaldeaths">
+
+    </div>
+
+
+    <h3>daily deaths in india</h3>
+
+    <div id="dailydeaths">
+
+    </div>
+
+    <h3>
+        daily recovered in india
+    </h3>
+    <div id="dailyrecovered"></div> 
+
+
+</div>
+
+
+<h3>
+    total recovered in india
+</h3>
+
+ <div id="totalrecovered"></div>
+
+    <table style="width: 100%;">   
+     <thead>
+        <tr>
+
+
+
+        <th>
+            STATE
+        </th>
+        <th>
+            LAST UPDATED TIME
+        </th>
+
+
+        <th>
+            RECOOVERED CASES
+        </th>
+
+        <th>
+            ACTIVE CASES
+        </th>
+
+
+        <th>
+            TOTAL CASES
+        </th>
+        
+        <th>
+            DEATHS
+        </th>
+
+
+
+        </tr>
+    </thead>
+    <tbody id="body">
+        
+    </tbody>
+
+</table>
+    
+    </div>
+
+
+    
+
+
+
+
+<script>
+
+
+$.ajax({
+    
+    type:"get",
+    url:"https://api.covid19india.org/data.json",
+    success:function(datax)
+    {
+        console.log(datax);
+// for(let i=0;i<10;i++)
+// {
+//         var t=` 
+//                     <tr>
+//                             <td>
+//                                     ap
+//                             </td>
+//                             <td>
+//                                     number
+//                             </td>
+//                     </tr>`
+//             $("#body").append(t);
+// }
+
+
+for(let i=0;i<datax.statewise.length;i++)
+{
+    console.log(datax.statewise[i]);
+    var t=` 
+                    <tr>
+                            <td>
+                                    ${datax.statewise[i].state}
+                            </td>
+                            <td>
+                                    
+                                ${datax.statewise[i].lastupdatedtime}
+                            </td>
+                            
+                            <td>
+                                    
+                                    ${datax.statewise[i].active}
+                                </td>
+                                <td>
+                                    ${datax.statewise[i].recovered}
+
+                                </td>
+                                <td>
+                                    ${datax.statewise[i].confirmed}
+
+                                </td>
+
+
+                                <td>
+                                    
+                                    ${datax.statewise[i].deaths}
+                                </td>
+                    </tr>`
+            $("#body").append(t);
+ 
+
+}
+
+
+    }
+})
+
+
+
+
+
+
+$.ajax(
+    {
+        type:"get",
+        url:"https://api.covid19india.org/data.json",
+        success:function(datax)
+        {
+            let a=[]
+            for(let i=0;i<datax.cases_time_series.length;i++)
+            {
+                a1=[]
+                a1.push(datax.cases_time_series[i].dateymd);
+                a1.push(parseInt(datax.cases_time_series[i].totalconfirmed));
+
+                a.push(a1);
+            }
+            console.log(a);
+
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBackgroundColor);
+
+function drawBackgroundColor() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'date');
+      data.addColumn('number', 'totalcases');
+
+      data.addRows(a);
+
+      var options = {
+        hAxis: {
+          title: 'date'
+        },
+        vAxis: {
+          title: 'totalcases'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('cases'));
+      chart.draw(data, options);
+    }
+
+
+
+
+        }
+    }
+)
+
+
+
+
+
+
+
+$.ajax(
+    {
+        type:"get",
+        url:"https://api.covid19india.org/data.json",
+        success:function(datax)
+        {
+            let a=[]
+            for(let i=0;i<datax.cases_time_series.length;i++)
+            {
+                a1=[]
+                a1.push(datax.cases_time_series[i].dateymd);
+                a1.push(parseInt(datax.cases_time_series[i].dailyconfirmed));
+
+                a.push(a1);
+            }
+            console.log(a);
+
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBackgroundColor);
+
+function drawBackgroundColor() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'date');
+      data.addColumn('number', 'dailycases');
+
+      data.addRows(a);
+
+      var options = {
+        hAxis: {
+          title: 'date'
+        },
+        vAxis: {
+          title: 'dailycases'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('dailycases'));
+      chart.draw(data, options);
+    }
+
+
+
+
+        }
+    }
+)
+
+
+
+$.ajax(
+    {
+        type:"get",
+        url:"https://api.covid19india.org/data.json",
+        success:function(datax)
+        {
+            let a=[]
+            for(let i=0;i<datax.cases_time_series.length;i++)
+            {
+                a1=[]
+                a1.push(datax.cases_time_series[i].dateymd);
+                a1.push(parseInt(datax.cases_time_series[i].totaldeceased));
+
+                a.push(a1);
+            }
+            console.log(a);
+
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBackgroundColor);
+
+function drawBackgroundColor() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'date');
+      data.addColumn('number', 'totaldeaths');
+
+      data.addRows(a);
+
+      var options = {
+        hAxis: {
+          title: 'date'
+        },
+        vAxis: {
+          title: 'totaldeaths'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('totaldeaths'));
+      chart.draw(data, options);
+    }
+
+
+
+
+        }
+    }
+)
+
+
+
+
+
+$.ajax(
+    {
+        type:"get",
+        url:"https://api.covid19india.org/data.json",
+        success:function(datax)
+        {
+            let a=[]
+            for(let i=0;i<datax.cases_time_series.length;i++)
+            {
+                a1=[]
+                a1.push(datax.cases_time_series[i].dateymd);
+                a1.push(parseInt(datax.cases_time_series[i].dailydeceased));
+
+                a.push(a1);
+            }
+            console.log(a);
+
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBackgroundColor);
+
+function drawBackgroundColor() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'date');
+      data.addColumn('number', 'dailydeceased');
+
+      data.addRows(a);
+
+      var options = {
+        hAxis: {
+          title: 'date'
+        },
+        vAxis: {
+          title: ' dailydeaths'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('dailydeaths'));
+      chart.draw(data, options);
+    }
+
+
+
+
+        }
+    }
+)
+
+
+
+
+$.ajax(
+    {
+        type:"get",
+        url:"https://api.covid19india.org/data.json",
+        success:function(datax)
+        {
+            let a=[]
+            for(let i=0;i<datax.cases_time_series.length;i++)
+            {
+                a1=[]
+                a1.push(datax.cases_time_series[i].dateymd);
+                a1.push(parseInt(datax.cases_time_series[i].dailyrecovered));
+
+                a.push(a1);
+            }
+            console.log(a);
+
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBackgroundColor);
+
+function drawBackgroundColor() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'date');
+      data.addColumn('number', 'dailyrecovered');
+
+      data.addRows(a);
+
+      var options = {
+        hAxis: {
+          title: 'date'
+        },
+        vAxis: {
+          title: 'dailyrecovered'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('dailyrecovered'));
+      chart.draw(data, options);
+    }
+
+
+
+
+        }
+    }
+)
+
+
+
+
+$.ajax(
+    {
+        type:"get",
+        url:"https://api.covid19india.org/data.json",
+        success:function(datax)
+        {
+            let a=[]
+            for(let i=0;i<datax.cases_time_series.length;i++)
+            {
+                a1=[]
+                a1.push(datax.cases_time_series[i].dateymd);
+                a1.push(parseInt(datax.cases_time_series[i].totalrecovered));
+
+                a.push(a1);
+            }
+            console.log(a);
+
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBackgroundColor);
+
+function drawBackgroundColor() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'date');
+      data.addColumn('number', 'totalrecovered');
+
+      data.addRows(a);
+
+      var options = {
+        hAxis: {
+          title: 'date'
+        },
+        vAxis: {
+          title: 'totalrecovered'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('totalrecovered'));
+      chart.draw(data, options);
+    }
+
+
+
+
+        }
+    }
+)
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
