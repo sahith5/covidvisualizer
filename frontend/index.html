@@ -16,85 +16,96 @@
     <style>
         #body{
             color: blueviolet;
+            background-color: rgb(80, 168, 168);
         }
         table,thead,tbody,th,td{
-            border: black 1px solid;
+            border: rgb(95, 37, 37) 1px solid;
             border-collapse:collapse ;
         }
     </style>
 
 </head>
 
-<body>
+<body >
+
+
+    <nav>
+
+
+    </nav>
 
 
 
-  <div class="container">
+
+
 
     <div class="row">
-        <div class="col-md-4 offset-2 col-xs-12">
+
+
+        <div class="col-sm-4 offset-5">
             total cases in india
         </div>
-        <div class="col-md-4 offset-2 col-xs-12">
+
+        <div class="col-sm-6 offset-3"   id="cases">
+
+
+
+
+        </div>
+        <div class="col-sm-4 offset-5">
             daily cases in india
+        </div>
+
+
+        <div class="col-sm-6 offset-3"  id="dailycases">
+        </div>
+
+        <div class="col-sm-4 offset-5">
+            total deaths in india
+        </div>
+        <div class="col-sm-6 offset-3"  id="totaldeaths">
 
         </div>
 
-    </div>
 
-
-
-    <div class="row">
-
-        <div class="col-md-6 col-sm-6" id="cases">
-
-
-
+        <div class="col-sm-4 offset-5">
+            daily deaths in india
+        </div>
+        <div class="col-sm-6 offset-3"  id="dailydeaths">
 
         </div>
 
-        <div class="col-md-6 col-sm-6"  id="dailycases">
 
-
+        <div class="col-sm-4 offset-5">
+            daily recovered in india
+        </div>
+        <div class="col-sm-6 offset-3"  id="dailyrecovered">
 
         </div>
+
+
+        <div class="col-sm-4 offset-5">
+            total recovered recovered in india
+        </div>
+        <div class="col-sm-6 offset-3"  id="totalrecovered">
+
+        </div>
+
+
+
+
     </div>
 
 
-  </div>  
-
-<div>
-  
-    <h3>total deaths in india</h3>
-
-    <div id="totaldeaths">
+    <div class="h1">
+        table
 
     </div>
 
 
-    <h3>daily deaths in india</h3>
-
-    <div id="dailydeaths">
-
-    </div>
-
-    <h3>
-        daily recovered in india
-    </h3>
-    <div id="dailyrecovered"></div> 
-
-
-</div>
-
-
-<h3>
-    total recovered in india
-</h3>
-
- <div id="totalrecovered"></div>
-
-    <table style="width: 100%;">   
-     <thead>
+<div class="container-flow" style="margin: 4px;">
+    <table class="table table-dark table-hover">
+        <thead>
         <tr>
 
 
@@ -134,8 +145,7 @@
 
 </table>
     
-    </div>
-
+</div>
 
     
 
